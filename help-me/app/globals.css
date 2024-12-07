@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --darkcolor: #010d0b;
+  --lightcolor: #fff;
+}
+
+body {
+  color: var(--darkcolor);
+  background: var(--lightcolor);
+  font-family: Arial, Helvetica, sans-serif;
+}
