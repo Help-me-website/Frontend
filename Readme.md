@@ -11,6 +11,7 @@ git clone https://github.com/Help-me-website/Frontend.git
 2. Change the directory
 
 ```bash
+cd Frontend
 cd help-me
 ```
 
