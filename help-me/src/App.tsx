@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
 import { useAtom, useAtomValue } from "jotai";
 import { isLogedIn, darkMode } from "./atoms";
-import "./App.css";
+
 import Home from "./Pages/Home"
 import Questions from "./Pages/Questions";
 import Faqs from "./Pages/Faqs";
@@ -9,11 +9,14 @@ import NoPage from "./Pages/NoPage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
+
 import homeIcon from "../public/home-svgrepo-com.svg";
 import questionIcon from "../public/question-circle-svgrepo-com.svg";
 import faqIcon from "../public/faq.svg";
 import profileIcon from "../public/profile-1341-svgrepo-com.svg";
 import darkIcon from "../public/Frame.svg"
+
+import "./App.css";
 
 
 function App() {

@@ -6,3 +6,11 @@
     --darkcolor: #010D0B;
     --lightcolor: #FFF;
 }
+
+* {
+    box-sizing: border-box;
+}
+
+.categories-links {
+    padding: 32px;
+}
