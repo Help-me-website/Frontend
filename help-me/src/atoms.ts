@@ -1,4 +1,4 @@
 import { atom } from 'jotai';
 
 export const isLogedIn = atom(false);
-export const darkMode = atom(true)
+export const ThemeAtom = atom(localStorage.getItem("theme") || "light");
