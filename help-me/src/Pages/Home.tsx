@@ -13,7 +13,6 @@ import Society from "../../public/society.svg";
 import Science from "../../public/science.svg";
 import Game from "../../public/game.svg";
 import Hobby from "../../public/hobby.svg";
-import "../App.css";
 
 const categoryNames: string[] = [
   "Professional development",
