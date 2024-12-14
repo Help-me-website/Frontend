@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Arrow from "../../public/BlackVector.svg";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const faqs = [
   "How many colors should I choose?",
@@ -46,15 +46,18 @@ const ExpandingDiv = ({ faq, answer }) => {
 
   return (
     <div className="rounded p-4 mx-auto">
-      <div className="flex justify-between items-center py-4 px-6 gap-2 rounded-2xl bg-[var(--darkcolor)] text-[var(--lightcolor)]">
+      <div className="flex justify-between items-center py-4 px-6 gap-2 rounded-2xl bg-primary-200 text-[var(--lightcolor)]">
         <h2 className="text-lg">{faq}</h2>
         <div
           className={`bg-[var(--lightcolor)] p-1 rounded-full hover:cursor-pointer  ${
-            isExpanded ? "-rotate-90" : "rotate-90"
+            isExpanded ? "rotate-180" : ""
           }`}
           onClick={toggleExpansion}
         >
-          <img src={Arrow} alt="Arrow Icon" className="w-5" />
+          <Icon
+            className="w-7 h-7"
+            icon={"material-symbols:arrow-circle-down-rounded"}
+          />
         </div>
       </div>
       <div
