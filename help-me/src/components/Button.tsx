@@ -19,11 +19,8 @@ export default function Button({
         <button
           className={`
                         text-unselectable rounded-xl bg-primary-600 text-text-50 transition-all duration-300
-                        ${
-                          disabled
-                            ? "cursor-not-allowed"
-                            : "hover:opacity-80 active:scale-[1.02]"
-                        }
+                        ${disabled ? "cursor-not-allowed" : "hover:opacity-80 active:scale-[0.95]"}
+
                         ${className}
                     `}
           onClick={onClick}
@@ -37,47 +34,36 @@ export default function Button({
         <button
           className={`
                         text-unselectable rounded-xl bg-bg border border-primary-600 text-primary-600 transition-all duration-300
-                        ${
-                          disabled
-                            ? "cursor-not-allowed"
-                            : "hover:bg-primary-600 hover:text-text-50 active:scale-[1.02]"
-                        }
+                        ${disabled ? "cursor-not-allowed" : "hover:bg-primary-600 hover:text-text-50 active:scale-[0.95]"}
                         ${className}
                     `}
-          onClick={onClick}
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      );
-    case 3:
-      return (
-        <button
-          className={`
-                        text-unselectable rounded-xl bg-oh-yeah text-bg transition-all duration-300
-                        ${
-                          disabled
-                            ? "cursor-not-allowed"
-                            : "hover:bg-fg-shade-1 active:scale-[1.02]"
-                        }
+                    onClick={onClick}
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            );
+        case 3:
+            return (
+                <button
+                    className={`
+                        text-unselectable rounded-xl bg-oh-yeah text-text-50 transition-all duration-300
+                        ${disabled ? "cursor-not-allowed" : "hover:opacity-80 active:scale-[0.95]"}
                         ${className}
                     `}
-          onClick={onClick}
-          disabled={disabled}
-        >
-          {children}
-        </button>
-      );
-    case 4:
-      return (
-        <button
-          className={`
-                            text-unselectable rounded-xl bg-oh-noo text-bg transition-all duration-300
-                            ${
-                              disabled
-                                ? "cursor-not-allowed"
-                                : "hover:bg-fg-shade-1 active:scale-[1.02]"
-                            }
+                    onClick={onClick}
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            );
+            case 4:
+                return (
+                    <button
+                        className={`
+                            text-unselectable rounded-xl bg-oh-noo text-[#edf6f7] transition-all duration-300
+                            ${disabled ? "cursor-not-allowed" : "hover:bg-fg-shade-1 active:scale-[0.95]"}
+
                             ${className}
                         `}
           onClick={onClick}

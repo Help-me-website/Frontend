@@ -73,7 +73,7 @@ const Questions = () => {
     return <>
     
 
-        <section className="flex flex-col gap-5 w-full items-center">
+        <section className="flex flex-col gap-3 w-full items-center">
             {questions.map((question, index) => <QuestionCard key={index} question={question} />)}
         </section>
 

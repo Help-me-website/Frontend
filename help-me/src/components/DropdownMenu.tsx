@@ -45,8 +45,9 @@ export default function DropdownMenu({
     return(        
         <div
             className={`text-unselectable w-max outline-none
-                        shadow-lg transition-all duration-300 flex flex-col justify-start
-                        items-center overflow-hidden absolute z-50 ${className}`}
+                shadow-lg transition-all duration-300 flex flex-col justify-start
+                items-center overflow-hidden absolute z-50 ${className}
+            `}
             style={isOpen ? { height: "max-content", borderColor: "var(--text-500)" } : { height: "0px", borderColor: "transparent" }}
             ref={menuRef}
             role="menu"
