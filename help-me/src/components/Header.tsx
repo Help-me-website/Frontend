@@ -1,5 +1,4 @@
-
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { isLogedIn, ThemeAtom } from "../atoms";
 
 import { Link } from "react-router-dom";
@@ -7,7 +6,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import DropdownMenu from "./DropdownMenu";
-import { useSetAtom } from "jotai";
 import { useWindowWidth } from "../hooks/useWindowWidth";
 import { usePageName } from "../hooks/usePageName";
 
@@ -16,10 +14,7 @@ import { usePageName } from "../hooks/usePageName";
 const profileAccessorLimit = 700;
 const navBarLimit = 1024;
 
-
-
 export default function Header() {
-
 
     //-> some states
     const [menu, setMenu] = useState(false);
@@ -101,9 +96,7 @@ export default function Header() {
     );
 }
 
-
 function Navbar() {
-
 
     //-> page name
     const page = usePageName();
@@ -125,11 +118,10 @@ function Navbar() {
             </Link>
         </nav>
     );
+
 }
 
-
 function ThemeToggler() {
-
     
     //-> theme state
     const [theme, setTheme] = useAtom(ThemeAtom);
@@ -158,9 +150,7 @@ function ThemeToggler() {
     );
 }
 
-
 function AccountAccessor() {
-
 
     //-> login state
     const logedIn = useAtomValue(isLogedIn);
@@ -203,11 +193,17 @@ function AccountAccessor() {
             </Button>
         </div>
     );
-} 
-
+  else
+    return (
+      <div className="flex gap-4">
+        <Button
+          variation={1}
+          className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+        >
+          <Link to="/login">Login</Link>
+        </Button>
 
 function ProfileMenuContent() {
-
 
     //-> profile menu content
     return(
@@ -250,8 +246,64 @@ function ProfileMenuContent() {
     );
 }
 
+function ProfileMenuContent() {
+  return (
+    <div className="cursor-default w-[250px] h-fit bg-background-50 flex flex-col justify-center items-center p-3 border rounded-2xl border-text-200">
+      <div className="w-full h-fit my-2 flex flex-row justify-center items-center">
+        <span className="h-full w-fit flex justify-center items-center ">
+          <Icon icon="majesticons:user-circle" className="w-16 h-16" />
+        </span>
+        <span className="h-full w-full font-medium flex flex-col justify-center items-start ml-5">
+          <h1>omarsalama550</h1>
+          <p className="opacity-60">Omar Salama</p>
+          <Link
+            to="/profile/edit"
+            className="flex items-center gap-2 text-text-950 transition-all duration-300 hover:text-accent-700"
+          >
+            <Icon icon="majesticons:pencil" className="w-5 h-5" />
+            Edit
+          </Link>
+        </span>
+      </div>
+
+      <hr className="w-[95%] h-2 my-2" />
+
+      <div className="w-full h-fit text-lg font-semibold text-text-950 flex flex-col gap-3">
+        <Link
+          to="/profile/favorites"
+          className="flex gap-2 text-text-950 items-center transition-all duration-300 hover:text-accent-700"
+        >
+          <Icon icon="majesticons:heart-line" className="w-8 h-8" />
+          Favorites
+        </Link>
+        <Link
+          to="/profile/history"
+          className="flex gap-2 text-text-950 items-center transition-all duration-300 hover:text-accent-700"
+        >
+          <Icon icon="majesticons:clock-line" className="w-8 h-8" />
+          History
+        </Link>
+        <Link
+          to="/profile/notifications"
+          className="flex gap-2 text-text-950 items-center transition-all duration-300 hover:text-accent-700"
+        >
+          <Icon icon="majesticons:bell-line" className="w-8 h-8" />
+          Notifications
+        </Link>
+        <span
+          onClick={() => Logout()}
+          className="flex gap-2 text-text-950 items-center transition-all duration-300 hover:text-accent-700"
+        >
+          <Icon icon="majesticons:logout-line" className="w-8 h-8" />
+          Logout
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function Logout() {
+
 
     
     // TODO: implement logout
