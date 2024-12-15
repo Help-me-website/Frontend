@@ -18,15 +18,15 @@ const categoryNames: string[] = [
 ];
 
 const categoryLinks: string[] = [
-  "/signup",
-  "/login",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
 ];
 
 const categoryIcons: string[] = [
