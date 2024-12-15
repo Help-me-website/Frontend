@@ -2,6 +2,9 @@
 module.exports = {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+	future: {
+    	hoverOnlyWhenSupported: true,
+  },
   theme: {
 	colors: {
 		'text': {
@@ -70,7 +73,8 @@ module.exports = {
 			950: 'var(--accent-950)',
 		},
 		"oh-noo": "var(--oh-noo)",
-		"oh-yeah": "var(--oh-yeah)"
+		"oh-yeah": "var(--oh-yeah)",
+		"transparent": "transparent",
 },
 
   	extend: {
