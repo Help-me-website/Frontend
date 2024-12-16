@@ -10,22 +10,50 @@ const Login = () => {
   const [Email, setEmail] = useAtom(email);
   const [Password, setPassword] = useAtom(password);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const navigate = useNavigate();
 
-  const handleLogin = (e: { preventDefault: () => void }) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (!Email || !Password) {
       setError("Please enter both email and password.");
       return;
     }
-    setEmail("");
-    setPassword("");
-    setError("");
-    setLogedIn(true);
-    navigate("/");
 
-    alert("Login successful!");
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: Email,
+          password: Password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed. Please check your credentials.");
+      }
+
+      const data = await response.json();
+      const { token } = data;
+      localStorage.setItem("authToken", token);
+
+      setSuccess("Login successful! Redirecting to Homepage...");
+      setError("");
+
+      setEmail("");
+      setPassword("");
+      setLogedIn(true);
+
+      setTimeout(() => navigate("/"), 1000);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "An error occurred during login.");
+    }
   };
 
   return (
@@ -52,7 +80,6 @@ const Login = () => {
             placeholder="Enter your email"
           ></Input>
         </div>
-
         <div className="mb-3">
           <label
             htmlFor="password"
@@ -81,6 +108,9 @@ const Login = () => {
           Login
         </Button>
         {error && <p className="text-[#cb2f2f] text-center mt-4">{error}</p>}
+        {success && (
+          <p className="text-[#28a745] text-center mt-4">{success}</p>
+        )}
       </form>
     </>
   );

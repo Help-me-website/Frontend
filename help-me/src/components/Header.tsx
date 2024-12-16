@@ -265,7 +265,7 @@ function ProfileMenuContent() {
   );
 }
 
-function Logout() {
+export function Logout() {
   // TODO: implement logout
   const logout = useSetAtom(isLogedIn);
   localStorage.removeItem("isLoggedIn");
