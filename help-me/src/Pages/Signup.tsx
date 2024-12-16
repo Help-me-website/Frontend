@@ -1,34 +1,65 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { isLogedIn, firstName, lastName, email, password } from "../atoms";
-import { useAtom, useSetAtom } from "jotai";
+import { isLogedIn } from "../atoms";
+import { useSetAtom } from "jotai";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
 const Signup = () => {
   const setLogedIn = useSetAtom(isLogedIn);
-  const [FirstName, setFirstName] = useAtom(firstName);
-  const [LastName, setLastName] = useAtom(lastName);
-  const [Email, setEmail] = useAtom(email);
-  const [Password, setPassword] = useAtom(password);
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e: { preventDefault: () => void }) => {
+  const handleSignup = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (!FirstName || !LastName || !Email || !Password) {
-      setError("Please complete the missing fields.");
+      setError("Please complete all fields.");
       return;
     }
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setError("");
-    setLogedIn(true);
-    navigate("/");
-    alert("Signup successful!");
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: FirstName,
+          lastName: LastName,
+          email: Email,
+          password: Password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed. Please try again.");
+      }
+
+      const data = await response.json();
+      const { token } = data;
+      localStorage.setItem("authToken", token);
+
+      setSuccess("Signup successful! Redirecting to Homepage...");
+      setError("");
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+
+      setLogedIn(true);
+
+      setTimeout(() => navigate("/"), 1000);
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "An error occurred during signup.");
+    }
   };
 
   return (
@@ -38,7 +69,7 @@ const Signup = () => {
       </h2>
       <form
         className="flex flex-col w-[80%] mx-auto max-w-[500px] bg-white p-8 shadow-md border-primary-200 border-[3px] rounded-xl"
-        onSubmit={handleLogin}
+        onSubmit={handleSignup}
       >
         <div className="mb-4">
           <label
@@ -52,7 +83,7 @@ const Signup = () => {
             id="firstname"
             value={FirstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Enter your fisrt name"
+            placeholder="Enter your first name"
           ></Input>
         </div>
         <div className="mb-4">
@@ -114,6 +145,9 @@ const Signup = () => {
           Signup
         </Button>
         {error && <p className="text-[#cb2f2f] text-center mt-4">{error}</p>}
+        {success && (
+          <p className="text-[#28a745] text-center mt-4">{success}</p>
+        )}
       </form>
     </>
   );

@@ -5,14 +5,18 @@ import { isLogedIn } from "./atoms";
 import Home from "./Pages/Home";
 import Questions from "./Pages/Questions";
 import Faqs from "./Pages/Faqs";
-import NoPage from "./Pages/NoPage";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import Answer from "./Pages/Answer";
 import Profile from "./Pages/Profile";
+import EditPage from "./Pages/EditPage";
+import Favorites from "./Pages/Favorites";
+import History from "./Pages/History";
+import Notifications from "./Pages/Notifications";
+import NoPage from "./Pages/NoPage";
+import Header from "./components/Header";
 
 import "./styles/App.css";
-import Answer from "./Pages/Answer";
-import Header from "./components/Header";
 
 function App() {
   const logedIn = useAtomValue(isLogedIn);
@@ -24,15 +28,25 @@ function App() {
           <Route index element={<Home />} />
           <Route path="questions" element={<Questions />} />
           <Route path="faq" element={<Faqs />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
           {logedIn ? (
-            <Route path="profile" element={<Profile />} />
+            <>
+              <Route path="profile" element={<Profile />} />
+              <Route path="profile/edit" element={<EditPage />} />
+              <Route path="/profile/favorites" element={<Favorites />} />
+              <Route path="/profile/history" element={<History />} />
+              <Route
+                path="/profile/notifications"
+                element={<Notifications />}
+              />
+            </>
           ) : (
-            <Route path="*" element={<NoPage />} />
+            <>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+            </>
           )}
-          <Route path="*" element={<NoPage />} />
 
+          <Route path="*" element={<NoPage />} />
           <Route path="/questions/:id" element={<Answer />} />
         </Route>
       </Routes>
