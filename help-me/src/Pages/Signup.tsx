@@ -55,7 +55,7 @@ const Signup = () => {
 
       setLogedIn(true);
 
-      setTimeout(() => navigate("/"), 1000);
+      setTimeout(() => navigate("/"), 500);
     } catch (err: any) {
       console.error(err);
       setError(err.message || "An error occurred during signup.");
