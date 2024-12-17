@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useAtomValue } from "jotai";
-import { isLogedIn } from "./atoms";
+import { isLogedIn, showLogoutModal } from "./atoms";
 
 import Home from "./Pages/Home";
 import Questions from "./Pages/Questions";
@@ -17,10 +17,10 @@ import NoPage from "./Pages/NoPage";
 import Header from "./components/Header";
 
 import "./styles/App.css";
+import LogoutModal from "./components/LogoutModal";
 
 function App() {
   const logedIn = useAtomValue(isLogedIn);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -37,7 +37,7 @@ function App() {
               <Route
                 path="/profile/notifications"
                 element={<Notifications />}
-              />
+                />
             </>
           ) : (
             <>
@@ -55,9 +55,11 @@ function App() {
 }
 
 const Layout = () => {
+  const logoutModal = useAtomValue(showLogoutModal);
   return (
     <>
       <Header />
+      {logoutModal && <LogoutModal />}
       <Outlet />
     </>
   );

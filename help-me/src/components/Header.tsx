@@ -1,12 +1,11 @@
-import { useAtom, useAtomValue } from "jotai";
-import { isLogedIn, ThemeAtom } from "../atoms";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { isLogedIn, ThemeAtom, showLogoutModal } from "../atoms";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import DropdownMenu from "./DropdownMenu";
-import { useSetAtom } from "jotai";
 import { useWindowWidth } from "../hooks/useWindowWidth";
 import { usePageName } from "../hooks/usePageName";
 
@@ -17,6 +16,7 @@ const navBarLimit = 1024;
 export default function Header() {
   //-> some states
   const [menu, setMenu] = useState(false);
+
   const windowWidth = useWindowWidth();
   const logedIn = useAtomValue(isLogedIn);
   const page = usePageName();
@@ -29,8 +29,8 @@ export default function Header() {
   return (
     <header
       className="text-unselectable flex flex-col items-center justify-between filter-backdrop
-                border-b border-solid border-text-200 fixed top-0 left-0 right-0 z-20
-            "
+      border-b border-solid border-text-200 fixed top-0 left-0 right-0 z-20
+      "
     >
       <div className="flex flex-row items-center justify-between w-full h-[4rem] flex-shrink-0 p-3 px-8">
         <h1 className="text-xl font-bold flex flex-1">
@@ -67,8 +67,8 @@ export default function Header() {
       {windowWidth < navBarLimit && (
         <div
           className="px-8 flex flex-col items-center relative justify-center w-full h-[12rem]
-                        flex-wrap gap-5 border-t border-transparent transition-all duration-300 overflow-hidden
-                        "
+        flex-wrap gap-5 border-t border-transparent transition-all duration-300 overflow-hidden
+        "
           style={
             menu
               ? { height: "fit-content", borderColor: "var(--text-200)" }
@@ -162,18 +162,20 @@ function ThemeToggler() {
 }
 
 function AccountAccessor() {
-  //-> login state
+  const navigate = useNavigate();
   const logedIn = useAtomValue(isLogedIn);
 
-  //-> profile menu state and toggler ref
   const [isOpen, setIsOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  //-> if the user is loged in, render the profile icon and dropdown menu
-  //-> else, render the login and signup buttons
   if (logedIn)
     return (
-      <button title="button" className="" ref={btnRef} onClick={() => setIsOpen(!isOpen)}>
+      <button
+        title="button"
+        className=""
+        ref={btnRef}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <Icon
           icon="majesticons:user-line"
           className="w-8 h-8 transition-all duration-300 icon-hover"
@@ -194,21 +196,41 @@ function AccountAccessor() {
         <Button
           variation={1}
           className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+          onClick={() => navigate("/login")}
         >
-          <Link to="/login">Login</Link>
+          Login
         </Button>
 
         <Button
           variation={2}
           className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+          onClick={() => navigate("/signup")}
         >
-          <Link to="/signup">Sign up</Link>
+          Signup
         </Button>
       </div>
     );
 }
 
 function ProfileMenuContent() {
+
+  const logOut = useSetAtom(showLogoutModal);
+  const navigate = useNavigate();
+  const setLoggedout = useSetAtom(isLogedIn);
+  const handleConfirmLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userData");
+    setLoggedout(false);
+    navigate("/");
+  };
+
+
+
+
   //-> profile menu content
   return (
     <div className="cursor-default h-fit bg-background-50 flex flex-col justify-center items-center p-3 border rounded-2xl border-text-200">
@@ -217,8 +239,12 @@ function ProfileMenuContent() {
           <Icon icon="majesticons:user-circle" className="w-16 h-16" />
         </span>
         <span className="h-full w-full font-medium flex flex-col justify-center items-start ml-5">
-          <h1 className="text-lg">{`${localStorage.getItem("firstName")} ${localStorage.getItem("lastName")}`}</h1>
-          <p className="opacity-60 text-[14px]">{`${localStorage.getItem("email")}`}</p>
+          <h1 className="text-lg">{`${localStorage.getItem(
+            "firstName"
+          )} ${localStorage.getItem("lastName")}`}</h1>
+          <p className="opacity-60 text-[14px]">{`${localStorage.getItem(
+            "email"
+          )}`}</p>
           <Link
             to="/profile/edit"
             className="flex items-center gap-2 text-text-950 transition-all duration-300 icon-hover"
@@ -254,13 +280,14 @@ function ProfileMenuContent() {
           Notifications
         </Link>
         <span
-          onClick={() => Logout()}
+          onClick={() => logOut(true)}
           className="flex gap-2 text-text-950 items-center transition-all duration-300 cursor-pointer icon-hover"
-        >
+          >
           <Icon icon="majesticons:logout-line" className="w-8 h-8" />
           Logout
         </span>
       </div>
+      
     </div>
   );
 }
