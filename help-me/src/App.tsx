@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useAtomValue } from "jotai";
-import { isLogedIn, showLogoutModal } from "./atoms";
+import { isLogedIn, showLogoutModal, showdeleteAccount } from "./atoms";
 
 import Home from "./Pages/Home";
 import Questions from "./Pages/Questions";
@@ -56,10 +56,11 @@ function App() {
 
 const Layout = () => {
   const logoutModal = useAtomValue(showLogoutModal);
+  const deleteAccount = useAtomValue(showdeleteAccount);
   return (
     <>
       <Header />
-      {logoutModal && <LogoutModal />}
+      {(logoutModal || deleteAccount) && <LogoutModal />}
       <Outlet />
     </>
   );
