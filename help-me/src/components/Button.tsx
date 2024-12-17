@@ -6,6 +6,7 @@ type propsType = {
     onClick?:() => void,
     variation:number
     disabled?:boolean
+    ref?: React.RefObject<HTMLButtonElement | HTMLButtonElement>;
 }
 
 
@@ -14,6 +15,7 @@ export default function Button({
     className,
     onClick,
     variation,
+    ref,
     disabled = false
 }:propsType) {
     
@@ -29,6 +31,7 @@ export default function Button({
                     `}
                     onClick={onClick}
                     disabled={disabled}
+                    ref={ref}
                 >
                     {children}
                 </button>
@@ -43,6 +46,7 @@ export default function Button({
                     `}
                     onClick={onClick}
                     disabled={disabled}
+                    ref={ref}
                 >
                     {children}
                 </button>
@@ -57,6 +61,7 @@ export default function Button({
                     `}
                     onClick={onClick}
                     disabled={disabled}
+                    ref={ref}
                 >
                     {children}
                 </button>
@@ -71,6 +76,7 @@ export default function Button({
                         `}
                         onClick={onClick}
                         disabled={disabled}
+                        ref={ref}
                     >
                         {children}
                     </button>

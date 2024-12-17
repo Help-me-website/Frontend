@@ -145,6 +145,12 @@
 }
   
 
+/* @media (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+} */
+
 
 body {
     background-color: var(--background-50);
@@ -159,7 +165,7 @@ body {
 
 @layer utilities {
   .icon-hover, .text-hover {
-    @apply hover:text-accent-700 active:text-accent-700;
+    @apply hover:text-accent-700 active:text-accent-700 transition-colors duration-300;
   }
 
 }
@@ -169,6 +175,7 @@ body {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
+
 
 
 * {

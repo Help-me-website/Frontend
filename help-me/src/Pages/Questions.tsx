@@ -1,6 +1,15 @@
 
+import { Icon } from "@iconify/react/dist/iconify.js";
 import QuestionCard from "../components/QuestionCard";
+import SearchBar from "../components/SearchBar";
 import Question from "../types/Question";
+import Button from "../components/Button";
+import { useRef, useState } from "react";
+import CategoriesMenu from "../components/CategoriesMenu";
+import SortMenu from "../components/SortMenu";
+import FilterMenu from "../components/FilterMenu";
+import AddQuestionModal from "../modals/AddQuestionModa";
+import ModalBase from "../modals/ModalBase";
 
 
 const questions: Question[] = [
@@ -67,20 +76,141 @@ const questions: Question[] = [
 ];        
 
 
-const Questions = () => {
+
+export default function Questions() {
 
 
-    return <>
+    return <main className="w-full flex flex-col gap-3 items-center">
     
+        <div className="w-full p-2 px-5 flex flex-row gap-x-8 gap-y-3 flex-wrap items-center justify-center fixed py-4 top-[4rem] z-10 filter-backdrop border-b border-text-200">
+            <h1 className="hidden md:inline text-lg font-bold text-nowrap text-unselectable">Questions (5)</h1>
+                <SearchBar />
+            <span className="flex flex-row gap-x-8 gap-3 flex-wrap items-center justify-center">
+                <CategoriesBtn />
+                <FilterBtn />
+                <SortBtn />
+                <AddQuestionBtn />
+            </span>
+        </div>
 
-        <section className="flex flex-col gap-3 w-full items-center">
+        <section className="flex flex-col gap-5 w-full justify-center items-center mt-32 xl:mt-20">
             {questions.map((question, index) => <QuestionCard key={index} question={question} />)}
         </section>
 
-        
 
-    </>
+    </main>
 };
 
-  
-export default Questions;
+
+function FilterBtn() {
+
+
+    //-> menu state and toggler ref
+    const [isOpen, setIsOpen] = useState(false);
+    const btnRef = useRef<HTMLButtonElement>(null);
+    
+
+    return<>
+        <button 
+            className="relative"
+            ref={btnRef}
+            onClick={() => setIsOpen(!isOpen)}
+        >
+            <span className="flex gap-2 items-center font-semibold transition-all duration-300 icon-hover">
+                <Icon icon="majesticons:filter-line" className="w-6 h-6" />
+                <p className="hidden md:inline">Filter</p>
+            </span>
+            <FilterMenu   
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                togglerRef={btnRef}
+            />
+        </button>
+    </>
+}
+
+
+function SortBtn() {
+
+
+    //-> menu state and toggler ref
+    const [isOpen, setIsOpen] = useState(false);
+    const btnRef = useRef<HTMLButtonElement>(null);
+
+
+    return<>
+        <button
+            className="relative"
+            ref={btnRef}
+            onClick={() => setIsOpen(!isOpen)}
+        >
+            <span className="flex gap-2 items-center font-semibold transition-all duration-300 icon-hover">
+                <Icon icon="majesticons:sort-vertical" className="w-6 h-6" />
+                <p className="hidden md:inline">Sort</p>
+            </span>
+            <SortMenu   
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                togglerRef={btnRef}
+            />
+        </button>
+    </>
+}
+
+
+function CategoriesBtn() {
+
+
+    //-> menu state and toggler ref
+    const [isOpen, setIsOpen] = useState(false);
+    const btnRef = useRef<HTMLButtonElement>(null);
+
+
+    return<>
+        <button
+            className="relative"
+            ref={btnRef}
+            onClick={() => setIsOpen(!isOpen)}
+        >
+            <span className="flex gap-2 items-center font-semibold transition-all duration-300 icon-hover">
+                <Icon icon="majesticons:applications-line" className="w-6 h-6" />
+                <p className="hidden md:inline">Categories</p>
+            </span>
+            <CategoriesMenu   
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                togglerRef={btnRef}
+            />
+        </button>
+    </>
+}
+
+
+function AddQuestionBtn() {
+
+    const [isOpen, setIsOpen] = useState(true);
+    const btnRef = useRef<HTMLElement>(null);
+
+    return<>
+        <Button
+            variation={1}
+            className="flex gap-2 items-center text-nowrap px-3 py-2"    
+            onClick={() => setIsOpen(true)}
+            ref={btnRef}
+        >
+            <Icon icon="majesticons:plus-circle" className="w-6 h-6" />
+            <p className="hidden md:inline">Add Question</p>
+        </Button>
+        {/* { isOpen &&
+            // <AddQuestionModal togglerRef={btnRef} isOpen={isOpen} setIsOpen={setIsOpen} />
+            <ModalBase togglerRef={btnRef} isOpen={isOpen} setIsOpen={setIsOpen}>
+                <p>4</p>
+            </ModalBase>
+        } */}
+    </>
+}
+
+
+
+
+
