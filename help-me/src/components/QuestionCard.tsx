@@ -1,12 +1,8 @@
-
 import { Icon } from "@iconify/react";
 import Question from "../types/Question";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { useState } from "react";
-
-
-
 
 
 export default function QuestionCard({question}: {question: Question}) {
@@ -96,9 +92,8 @@ export default function QuestionCard({question}: {question: Question}) {
                 </div>
 
             </div>
-        
         </div>
-    );
+      </div>
+    </div>
+  );
 }
-
-

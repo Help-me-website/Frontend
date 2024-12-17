@@ -1,5 +1,5 @@
-
 import { Icon } from "@iconify/react/dist/iconify.js";
+
 import QuestionCard from "../components/QuestionCard";
 import SearchBar from "../components/SearchBar";
 import Question from "../types/Question";

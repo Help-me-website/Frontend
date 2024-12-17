@@ -1,5 +1,3 @@
-
-
 type propsType = {
     children?:React.ReactNode,
     className?:string,
@@ -27,6 +25,7 @@ export default function Button({
                     className={`
                         text-unselectable rounded-xl bg-primary-600 text-text-50 transition-all duration-300
                         ${disabled ? "cursor-not-allowed" : "hover:opacity-80 active:scale-[0.95]"}
+
                         ${className}
                     `}
                     onClick={onClick}
@@ -72,6 +71,7 @@ export default function Button({
                         className={`
                             text-unselectable rounded-xl bg-oh-noo text-[#edf6f7] transition-all duration-300
                             ${disabled ? "cursor-not-allowed" : "hover:bg-fg-shade-1 active:scale-[0.95]"}
+
                             ${className}
                         `}
                         onClick={onClick}
@@ -84,4 +84,14 @@ export default function Button({
         default:
             return null;
     }
+}
+          onClick={onClick}
+          disabled={disabled}
+        >
+          {children}
+        </button>
+      );
+    default:
+      return null;
+  }
 }
