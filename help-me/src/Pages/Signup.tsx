@@ -44,7 +44,10 @@ const Signup = () => {
       const data = await response.json();
       const { token } = data;
       localStorage.setItem("authToken", token);
-
+      localStorage.setItem("email", Email);
+      localStorage.setItem("firstName", FirstName);
+      localStorage.setItem("lastName", LastName);
+      localStorage.setItem("isLoggedIn", "true");
       setSuccess("Signup successful! Redirecting to Homepage...");
       setError("");
 

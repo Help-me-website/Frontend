@@ -3,8 +3,14 @@ type Question = {
     id: number;
     title: string;
     description: string;
-    categories: string[];
-    author: string;
+    category: {
+        categoryId:number,
+        name:string,
+        description:string,
+        date:string
+    };
+        firstName: string,
+        lastName: string
     isVarified: boolean;
     views: number;
     votes: number;

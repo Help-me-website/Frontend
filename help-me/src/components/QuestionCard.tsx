@@ -12,7 +12,7 @@ export default function QuestionCard({ question }: { question: Question }) {
       <h1 className="text-xl font-bold">{question.title}</h1>
 
       <p className="text-sm opacity-50">
-        By <b>{question.author}</b> in {question.categories.join(", ")}
+        By <b>{`${question.firstName} ${question.lastName}`}</b> in {question.category.name}
       </p>
 
       <p className="text-base">{question.description}</p>
