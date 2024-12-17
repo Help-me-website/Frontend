@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { useSetAtom } from "jotai";
-import { isLogedIn } from "../atoms";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { isLogedIn, showLogoutModal } from "../atoms";
 import ProfileNavbar from "../components/ProfileNavbar";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { json } from "stream/consumers";
 
 export default function EditPage() {
-  const navigate = useNavigate();
   const logout = useSetAtom(isLogedIn);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const logoutModal = useSetAtom(showLogoutModal);
+  const navigate = useNavigate();
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -20,10 +19,8 @@ export default function EditPage() {
   const toggleFirstnameEdit = () => setIsFirstnameEditable((prev) => !prev);
   const toggleLastnameEdit = () => setIsLastnameEditable((prev) => !prev);
 
-
   const token = localStorage.getItem("authToken");
 
-  // Fetch user profile (GET endpoint)
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -52,38 +49,33 @@ export default function EditPage() {
     fetchProfile();
   }, [token]);
 
-  // Save updated user data (PUT endpoint)
   const saveChanges = async () => {
     try {
-      // Get user data from localStorage
       const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-  
-      // Prepare updated user data
-      const firstName = firstname; // Updated firstname from input state
-      const lastName = lastname;   // Updated lastname from input state
+
+      const firstName = firstname;
+      const lastName = lastname;
       const newUserData = { ...userData, firstName, lastName };
-  
+
       localStorage.setItem("firstName", firstName);
       localStorage.setItem("lastName", lastName);
       console.log("Updated user data:", newUserData);
-  
-      // Send the updated data to the backend
+
       const response = await fetch("http://localhost:8080/user/profile", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newUserData), // Fix: Convert object to JSON string
+        body: JSON.stringify(newUserData),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to save changes.");
       }
-  
+
       const data = await response.json();
-  
-      // Update localStorage and React state
+
       localStorage.setItem("userData", JSON.stringify(data));
       alert("Changes saved successfully!");
       setFirstname(data.firstName);
@@ -93,44 +85,34 @@ export default function EditPage() {
       alert("Failed to save changes.");
     }
   };
-  
 
-  // Delete user (DELETE endpoint)
   const deleteUser = async () => {
     try {
-      const token = localStorage.getItem("authToken"); // Retrieve the token from localStorage
+      const token = localStorage.getItem("authToken");
       const response = await fetch("http://localhost:8080/user/profile", {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`, // Pass the token as Authorization header
+          Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to delete user.");
       }
-  
-      alert("User deleted successfully.");
-      // Log the user out after successful deletion
-      handleConfirmLogout();
 
+      alert("User deleted successfully.");
+      handleConfirmLogout();
     } catch (error) {
       console.error("Error deleting user:", error);
       alert("Failed to delete user.");
     }
   };
-  
+
   const handleConfirmLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("firstName")
-    localStorage.removeItem("lastName");
-    localStorage.removeItem("email");
-    localStorage.removeItem("userData");
-    logout(false); // Assuming you have a logout function to manage state globally
-    navigate("/"); // Redirect to home or login page after deletion
+    localStorage.clear();
+    logout(false);
+    navigate("/");
   };
-  
 
   return (
     <>
@@ -139,7 +121,7 @@ export default function EditPage() {
         <div className="flex justify-between">
           <h2 className="text-3xl">Profile Details</h2>
           <span
-            onClick={() => setShowLogoutModal(true)}
+            onClick={() => logoutModal(true)}
             className="flex gap-2 text-text-950 items-center transition-all duration-300 cursor-pointer icon-hover"
           >
             <Icon icon="majesticons:logout-line" className="w-8 h-8" />
@@ -213,31 +195,6 @@ export default function EditPage() {
           Delete Profile
         </button>
       </div>
-
-      {showLogoutModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-background-100 p-6 rounded-2xl border-2 border-primary-200 shadow-md text-center">
-            <h3 className="text-xl font-semibold mb-4">Confirm Logout</h3>
-            <p className="text-gray-600 mb-6">
-              Are you sure you want to logout?
-            </p>
-            <div className="flex justify-around">
-              <button
-                onClick={handleConfirmLogout}
-                className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-[#b12929] transition-all duration-200"
-              >
-                Yes, Logout
-              </button>
-              <button
-                onClick={() => setShowLogoutModal(false)}
-                className="px-4 py-2 bg-gray-300 text-black rounded-xl hover:bg-[#939393] transition-all duration-200"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
