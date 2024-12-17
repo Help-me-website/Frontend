@@ -78,6 +78,8 @@ export default function EditPage() {
       alert("Changes saved successfully!");
       setFirstname(data.firstName);
       setLastname(data.lastName);
+      setIsFirstnameEditable(false);
+      setIsLastnameEditable(false);
     } catch (error) {
       console.error("Error saving changes:", error);
       alert("Failed to save changes.");
@@ -87,7 +89,7 @@ export default function EditPage() {
   return (
     <>
       <ProfileNavbar />
-      <div className="flex flex-col gap-5 p-5 bg-text-100 w-[90%] rounded-[35px] mx-auto max-w-[600px]">
+      <div className="flex flex-col gap-5 p-5 bg-text-100 w-[90%] shadow-md border-primary-200 border-[3px] rounded-xl mx-auto max-w-[600px]">
         <div className="flex justify-between">
           <h2 className="text-3xl">Profile Details</h2>
           <span

@@ -1,6 +1,11 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useAtomValue } from "jotai";
-import { isLogedIn, showLogoutModal, showdeleteAccount } from "./atoms";
+import {
+  isLogedIn,
+  welcome,
+  showLogoutModal,
+  showdeleteAccount,
+} from "./atoms";
 
 import Home from "./Pages/Home";
 import Questions from "./Pages/Questions";
@@ -18,9 +23,11 @@ import Header from "./components/Header";
 
 import "./styles/App.css";
 import LogoutModal from "./components/LogoutModal";
+import Welcome from "./Pages/Welcome";
 
 function App() {
   const logedIn = useAtomValue(isLogedIn);
+  const Welcoming = useAtomValue(welcome);
   return (
     <BrowserRouter>
       <Routes>
@@ -45,9 +52,10 @@ function App() {
               <Route path="signup" element={<Signup />} />
             </>
           )}
-
           <Route path="*" element={<NoPage />} />
           <Route path="/questions/:id" element={<Answer />} />
+
+          {Welcoming && <Route path="/welcome" element={<Welcome />} />}
         </Route>
       </Routes>
     </BrowserRouter>

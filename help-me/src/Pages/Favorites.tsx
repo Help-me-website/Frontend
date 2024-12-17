@@ -5,7 +5,7 @@ export default function Favorites() {
   return (
     <>
       <ProfileNavbar />
-      <h1>I am the favorites page</h1>
+      <h1 className="text-center text-3xl">I am the Favorites page</h1>
       {/* <section className="flex flex-col gap-3 w-full items-center">
         {questions.map((question, index) => (
           <QuestionCard key={index} question={question} />
