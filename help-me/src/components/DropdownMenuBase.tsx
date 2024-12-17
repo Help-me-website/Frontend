@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useRef } from "react";
 
@@ -11,7 +12,7 @@ type PropsType = {
 }
 
 
-export default function DropdownMenu({
+export default function DropdownMenuBase({
     isOpen,
     setIsOpen,
     children,
