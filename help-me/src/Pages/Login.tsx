@@ -39,9 +39,12 @@ const Login = () => {
       }
 
       const data = await response.json();
-      const { token } = data;
+      const { token, firstName, lastName} = data;
       localStorage.setItem("authToken", token);
-
+      localStorage.setItem("email", Email);
+      localStorage.setItem("firstName", firstName);
+      localStorage.setItem("lastName", lastName);
+      localStorage.setItem("isLoggedIn", "true");
       setSuccess("Login successful! Redirecting to Homepage...");
       setError("");
 

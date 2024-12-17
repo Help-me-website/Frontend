@@ -63,6 +63,8 @@ export default function EditPage() {
       const lastName = lastname;   // Updated lastname from input state
       const newUserData = { ...userData, firstName, lastName };
   
+      localStorage.setItem("firstName", firstName);
+      localStorage.setItem("lastName", lastName);
       console.log("Updated user data:", newUserData);
   
       // Send the updated data to the backend
@@ -111,6 +113,7 @@ export default function EditPage() {
       alert("User deleted successfully.");
       // Log the user out after successful deletion
       handleConfirmLogout();
+
     } catch (error) {
       console.error("Error deleting user:", error);
       alert("Failed to delete user.");
@@ -120,6 +123,10 @@ export default function EditPage() {
   const handleConfirmLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("authToken");
+    localStorage.removeItem("firstName")
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
+    localStorage.removeItem("userData");
     logout(false); // Assuming you have a logout function to manage state globally
     navigate("/"); // Redirect to home or login page after deletion
   };
