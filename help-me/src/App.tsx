@@ -37,7 +37,7 @@ function App() {
               <Route
                 path="/profile/notifications"
                 element={<Notifications />}
-                />
+              />
             </>
           ) : (
             <>

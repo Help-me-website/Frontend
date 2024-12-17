@@ -17,7 +17,6 @@ export default function LogoutModal() {
     setLogout(false);
     navigate("/");
     setShowModal(false);
-    
   };
 
   return (
