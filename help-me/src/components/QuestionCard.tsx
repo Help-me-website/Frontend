@@ -6,11 +6,10 @@ import Button from "./Button";
 
 export default function QuestionCard({ question }: { question: Question }) {
   
-   const [toggle, setToggle] = useState(true);
-   const navigate = useNavigate();
+//    const [toggle, setToggle] = useState(true);
+//    const navigate = useNavigate();
   
   return (
-    <div
       <div className="w-[90vw] max-w-[900px] bg-accent-50 border border-text-200 rounded-xl p-4
                         flex flex-col justify-center items-start gap-1"
     >

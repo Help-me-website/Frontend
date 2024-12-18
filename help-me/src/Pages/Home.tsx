@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useAtom, useAtomValue } from "jotai";
+import { Link, useNavigate } from "react-router-dom";
+import { useAtomValue } from "jotai";
 import { isLogedIn } from "../atoms";
 import Button from "../components/Button";
 import Lamp from "../../public/lamp.svg";
@@ -43,6 +43,7 @@ const categoryIcons: string[] = [
 
 const Home = () => {
   const logedIn = useAtomValue(isLogedIn);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -61,8 +62,9 @@ const Home = () => {
             <Button
               variation={2}
               className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+              onClick={() => navigate("/signup")}
             >
-              <Link to="/signup">Sign up</Link>
+              Sign up
             </Button>
           )}
         </div>
@@ -81,10 +83,10 @@ const Home = () => {
           );
         })}
       </div>
-      <h2 className="text-center text-[40px] font-['Inter'] mt-40 mx-auto">
+      <h2 className="text-center text-[40px] font-['Inter'] mt-24 mx-auto">
         About Our Website...
       </h2>
-      <div className="max-w-[650px] text-lg font-light text-center italic mx-auto px-5 mt-5 mb-40">
+      <div className="max-w-[650px] text-lg font-light text-center italic mx-auto px-5 mt-5 mb-20">
         On our platform, we strive to solve all the challenges individuals face
         in society by encouraging everyone to share their problems, find
         solutions that benefit all, and provide comments and feedback to

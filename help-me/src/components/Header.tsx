@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { isLogedIn, ThemeAtom } from "../atoms";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
@@ -33,7 +33,9 @@ export default function Header() {
     >
       <div className="flex flex-row items-center justify-between w-full h-[4rem] flex-shrink-0 p-3 px-8">
         <h1 className="text-xl font-bold flex flex-1">
-          Help<b className="text-primary-600">Me!</b>
+          <Link to={"/"}>
+            Help<b className="text-primary-600">Me!</b>
+          </Link>
         </h1>
 
         {windowWidth > navBarLimit && <Navbar />}
@@ -163,6 +165,7 @@ function ThemeToggler() {
 function AccountAccessor() {
   //-> login state
   const logedIn = useAtomValue(isLogedIn);
+  const navigate = useNavigate();
 
   //-> profile menu state and toggler ref
   const [isOpen, setIsOpen] = useState(false);
@@ -190,15 +193,17 @@ function AccountAccessor() {
         <Button
           variation={1}
           className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+          onClick={() => navigate("/login")}
         >
-          <Link to="/login">Login</Link>
+          Login
         </Button>
 
         <Button
           variation={2}
           className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
+          onClick={() => navigate("/signup")}
         >
-          <Link to="/signup">Sign up</Link>
+          Sign up
         </Button>
       </div>
     );
