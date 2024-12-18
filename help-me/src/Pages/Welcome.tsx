@@ -18,7 +18,3 @@ export default function Welcome() {
     </div>
   );
 }
-      </h1>
-    </div>
-  );
-}
