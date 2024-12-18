@@ -97,3 +97,4 @@ function Logout() {
   localStorage.removeItem("isLoggedIn");
   logout(false);
 }
+

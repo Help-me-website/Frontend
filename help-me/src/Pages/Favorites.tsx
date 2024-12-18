@@ -80,4 +80,3 @@ export default function Favorites() {
 //     replies: 20,
 //     date: "2024-12-06",
 //   },
-// ];

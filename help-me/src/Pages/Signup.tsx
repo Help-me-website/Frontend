@@ -62,6 +62,7 @@ const Signup = () => {
       navigate("/")
 
 
+
     } catch (err: any) {
       console.error(err);
       setError(err.message || "An error occurred during signup.");

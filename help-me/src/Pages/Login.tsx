@@ -53,7 +53,6 @@ const Login = () => {
       setPassword("");
       setLogedIn(true);
 
-      // Welcome(true);
      
       navigate("/");    
       // Welcome(false);
