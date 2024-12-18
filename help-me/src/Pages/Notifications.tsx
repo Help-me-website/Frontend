@@ -4,7 +4,7 @@ export default function Notifications() {
   return (
     <div>
       <ProfileNavbar />
-      I am the Notifications page
+      <h1 className="text-center text-3xl">I am the Notifications page</h1>
     </div>
   );
 }

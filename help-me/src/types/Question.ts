@@ -9,12 +9,11 @@ type Question = {
         description:string,
         date:string
     };
-        firstName: string,
-        lastName: string
-    isVarified: boolean;
+    firstName: string,
+    lastName: string,
     views: number;
-    votes: number;
-    replies: number;
+    numberOfUsers: number;
+    // replies: number;
     date: string;
 }
 

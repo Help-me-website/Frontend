@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { isLogedIn, email, password } from "../atoms";
+import { isLogedIn, email, password, welcome } from "../atoms";
 import { useAtom, useSetAtom } from "jotai";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
 const Login = () => {
   const setLogedIn = useSetAtom(isLogedIn);
+  const Welcome = useSetAtom(welcome);
   const [Email, setEmail] = useAtom(email);
   const [Password, setPassword] = useAtom(password);
   const [error, setError] = useState("");
@@ -39,7 +40,7 @@ const Login = () => {
       }
 
       const data = await response.json();
-      const { token, firstName, lastName} = data;
+      const { token, firstName, lastName } = data;
       localStorage.setItem("authToken", token);
       localStorage.setItem("email", Email);
       localStorage.setItem("firstName", firstName);
@@ -52,7 +53,11 @@ const Login = () => {
       setPassword("");
       setLogedIn(true);
 
-      setTimeout(() => navigate("/"), 1000);
+      // Welcome(true);
+     
+      navigate("/");    
+      // Welcome(false);
+      
     } catch (err: any) {
       console.error(err);
       setError(err.message || "An error occurred during login.");

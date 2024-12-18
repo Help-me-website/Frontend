@@ -1,6 +1,11 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { useAtomValue } from "jotai";
-import { isLogedIn, showLogoutModal } from "./atoms";
+import {
+  isLogedIn,
+  welcome,
+  showLogoutModal,
+  showdeleteAccount,
+} from "./atoms";
 
 import Home from "./Pages/Home";
 import Questions from "./Pages/Questions";
@@ -15,12 +20,16 @@ import History from "./Pages/History";
 import Notifications from "./Pages/Notifications";
 import NoPage from "./Pages/NoPage";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Welcome from "./Pages/Welcome";
 
 import "./styles/App.css";
 import LogoutModal from "./components/LogoutModal";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   const logedIn = useAtomValue(isLogedIn);
+  const Welcoming = useAtomValue(welcome);
   return (
     <BrowserRouter>
       <Routes>
@@ -45,9 +54,10 @@ function App() {
               <Route path="signup" element={<Signup />} />
             </>
           )}
-
           <Route path="*" element={<NoPage />} />
           <Route path="/questions/:id" element={<Answer />} />
+
+          {Welcoming && <Route path="/welcome" element={<Welcome />} />}
         </Route>
       </Routes>
     </BrowserRouter>
@@ -56,11 +66,16 @@ function App() {
 
 const Layout = () => {
   const logoutModal = useAtomValue(showLogoutModal);
+  const deleteAccount = useAtomValue(showdeleteAccount);
   return (
     <>
-      <Header />
-      {logoutModal && <LogoutModal />}
-      <Outlet />
+      <div className="min-h-[85vh]">
+        <Header />
+        <ScrollToTopButton />
+        {(logoutModal || deleteAccount) && <LogoutModal />}
+        <Outlet />
+      </div>
+      <Footer />
     </>
   );
 };

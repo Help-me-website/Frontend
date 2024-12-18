@@ -27,14 +27,15 @@ export const categories = [
     },
     {
         id: 6,
-        name: "Skills",
-        full: "Skills"
-    },
-    {
-        id: 7,
         name: "Society",
         full: "Society"
     },
+    {
+        id: 7,
+        name: "Skills",
+        full: "Skills"
+    },
+    
     {
         id: 8,
         name: "Science",
