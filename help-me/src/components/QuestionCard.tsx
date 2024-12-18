@@ -3,10 +3,15 @@ import Question from "../types/Question";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 
+
 export default function QuestionCard({ question }: { question: Question }) {
+  
+   const [toggle, setToggle] = useState(true);
+   const navigate = useNavigate();
+  
   return (
     <div
-      className="w-[90vw] max-w-[800px] bg-accent-50 border border-text-200  rounded-xl p-3
+      <div className="w-[90vw] max-w-[900px] bg-accent-50 border border-text-200 rounded-xl p-4
                         flex flex-col justify-center items-start gap-1"
     >
       <h1 className="text-xl font-bold">{question.title}</h1>
