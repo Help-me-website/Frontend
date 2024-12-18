@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
-import { isLogedIn, showLogoutModal } from "../atoms";
+import { showdeleteAccount, showLogoutModal } from "../atoms";
 import ProfileNavbar from "../components/ProfileNavbar";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function EditPage() {
-  const logout = useSetAtom(isLogedIn);
   const logoutModal = useSetAtom(showLogoutModal);
-  const navigate = useNavigate();
+  const deleteAccount = useSetAtom(showdeleteAccount);
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -80,44 +78,18 @@ export default function EditPage() {
       alert("Changes saved successfully!");
       setFirstname(data.firstName);
       setLastname(data.lastName);
+      setIsFirstnameEditable(false);
+      setIsLastnameEditable(false);
     } catch (error) {
       console.error("Error saving changes:", error);
       alert("Failed to save changes.");
     }
   };
 
-  const deleteUser = async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      const response = await fetch("http://localhost:8080/user/profile", {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete user.");
-      }
-
-      alert("User deleted successfully.");
-      handleConfirmLogout();
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      alert("Failed to delete user.");
-    }
-  };
-
-  const handleConfirmLogout = () => {
-    localStorage.clear();
-    logout(false);
-    navigate("/");
-  };
-
   return (
     <>
       <ProfileNavbar />
-      <div className="flex flex-col gap-5 p-5 bg-text-100 w-[90%] rounded-[35px] mx-auto max-w-[600px]">
+      <div className="flex flex-col gap-5 p-5 bg-text-100 w-[90%] shadow-md border-primary-200 border-[3px] rounded-xl mx-auto max-w-[600px]">
         <div className="flex justify-between">
           <h2 className="text-3xl">Profile Details</h2>
           <span
@@ -181,19 +153,20 @@ export default function EditPage() {
           <p className="opacity-70 ml-5">{email}</p>
         </div>
 
-        <button
-          onClick={saveChanges}
-          className="w-fit bg-background-500 text-white py-2 px-5 rounded-3xl hover:bg-background-400 transition-all duration-200"
-        >
-          Save changes
-        </button>
-
-        <button
-          onClick={deleteUser}
-          className="w-fit bg-red-500 text-white py-2 px-5 rounded-3xl hover:bg-red-400 transition-all duration-200 mt-4"
-        >
-          Delete Profile
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={saveChanges}
+            className="w-fit h-fit bg-background-500 text-white py-2 px-5 rounded-3xl hover:bg-background-400 transition-all duration-200"
+          >
+            Save changes
+          </button>
+          <button
+            className="w-fit h-fit bg-[#c22c2c] text-white py-2 px-5 rounded-3xl hover:opacity-80 transition-all duration-200"
+            onClick={() => deleteAccount(true)}
+          >
+            Delete Account
+          </button>
+        </div>
       </div>
     </>
   );

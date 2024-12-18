@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { isLogedIn } from "../atoms";
+import { isLogedIn, welcome } from "../atoms";
 import { useSetAtom } from "jotai";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
 const Signup = () => {
   const setLogedIn = useSetAtom(isLogedIn);
+  const Welcome = useSetAtom(welcome);
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
@@ -58,7 +59,10 @@ const Signup = () => {
 
       setLogedIn(true);
 
-      setTimeout(() => navigate("/"), 500);
+      Welcome(true);
+      setTimeout(() => navigate("/welcome"), 2000);
+      Welcome(false);
+
     } catch (err: any) {
       console.error(err);
       setError(err.message || "An error occurred during signup.");
@@ -71,7 +75,7 @@ const Signup = () => {
         Signup
       </h2>
       <form
-        className="flex flex-col w-[80%] mx-auto max-w-[500px] bg-white p-8 shadow-md border-primary-200 border-[3px] rounded-xl"
+        className="flex flex-col w-[80%] mx-auto mb-20 max-w-[500px] bg-white p-8 shadow-md border-primary-200 border-[3px] rounded-xl"
         onSubmit={handleSignup}
       >
         <div className="mb-4">
