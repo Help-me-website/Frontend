@@ -1,18 +1,9 @@
 import { Link } from "react-router-dom";
 import { useAtom, useAtomValue } from "jotai";
-import { isLogedIn, darkMode } from "../atoms";
+import { isLogedIn } from "../atoms";
+import Button from "../components/Button";
 import Lamp from "../../public/lamp.svg";
-import WhiteArrow from "../../public/WhiteVector.svg";
-import BlackArrow from "../../public/BlackVector.svg";
-import Dolar from "../../public/dolar.svg";
-import Tech from "../../public/tech.svg";
-import Edu from "../../public/edu.svg";
-import Health from "../../public/health.svg";
-import Skills from "../../public/skills.svg";
-import Society from "../../public/society.svg";
-import Science from "../../public/science.svg";
-import Game from "../../public/game.svg";
-import Hobby from "../../public/hobby.svg";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const categoryNames: string[] = [
   "Professional development",
@@ -26,28 +17,28 @@ const categoryNames: string[] = [
   "Hobbies & Interests",
 ];
 
-const categoryIcons: string[] = [
-  Dolar,
-  Tech,
-  Edu,
-  Health,
-  Skills,
-  Society,
-  Science,
-  Game,
-  Hobby,
+const categoryLinks: string[] = [
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
+  "/questions",
 ];
 
-const categoryLinks: string[] = [
-  "/signup",
-  "/login",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
-  "/signup",
+const categoryIcons: string[] = [
+  "majesticons:dollar-circle-line",
+  "streamline:ai-technology-spark",
+  "tdesign:education",
+  "mage:heart-health",
+  "hugeicons:brain-02",
+  "stash:people-group",
+  "material-symbols:science-outline-sharp",
+  "solar:gamepad-broken",
+  "streamline:entertainment-party-popper-hobby-entertainment-party-popper-confetti-event",
 ];
 
 const Home = () => {
@@ -55,7 +46,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex md:flex-row flex-col p-8 mt-20 w-[80%] max-w-3xl mx-auto bg-[#d9d9d9] rounded-xl items-center gap-4 ">
+      <div className="flex md:flex-row flex-col p-8 mt-20 w-[80%] max-w-3xl mx-auto border-primary-200 border-[3px] rounded-xl items-center gap-4 ">
         <div className="flex flex-col justify-around items-start min-h-64 gap-4">
           <h1 className="text-xl italic font-medium text-black font-serif ">
             Every problem has a solution in our site
@@ -67,12 +58,12 @@ const Home = () => {
             <b> Rank </b> will gain a badge <b> Hero of the month</b>.
           </p>
           {!logedIn && (
-            <Link
-              to="/signup"
-              className="bg-black text-gray-100 italic ml-4 rounded-2xl font-serif px-3 py-2"
+            <Button
+              variation={2}
+              className="w-24 py-1 text-center rounded-3xl bg-[var(--darkcolor)] text-[var(--lightcolor)]"
             >
-              Sign Up
-            </Link>
+              <Link to="/signup">Sign up</Link>
+            </Button>
           )}
         </div>
         <img className="w-64" src={Lamp} alt="Lamp Icon" />
@@ -80,16 +71,11 @@ const Home = () => {
 
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-24 justify-center text-center items-center w-fit max-w-[900px] mx-auto">
         {categoryNames.map((category, index) => {
-          const backgroundColor = index % 2 === 0 ? "black" : "white";
-          const textColor = index % 2 === 0 ? "gray-100" : "black";
-
           return (
             <CategoryLink
               name={category}
               href={categoryLinks[index]}
               icon={categoryIcons[index]}
-              backgroundColor={backgroundColor}
-              textColor={textColor}
               key={index}
             />
           );
@@ -104,7 +90,8 @@ const Home = () => {
         solutions that benefit all, and provide comments and feedback to
         evaluate the effectiveness of these solutions. We hope that our platform
         succeeds in addressing all types of problems people encounter, whether
-        in work or life, and <b>we wish you a pleasant experience</b>
+        in work or life, and
+        <span className="font-bold"> we wish you a pleasant experience</span>
         <span className="not-italic">😊</span>
       </div>
     </>
@@ -113,19 +100,15 @@ const Home = () => {
 
 export default Home;
 
-const CategoryLink = ({ name, href, icon, backgroundColor, textColor }) => {
+const CategoryLink = ({ name, href, icon }) => {
   return (
     <Link
       to={href}
-      className={`flex justify-center items-center py-12 w-72 gap-2 mx-auto rounded-2xl font-semibold border-2 border-black text-black hover:opacity-80 transition-all bg-${backgroundColor} text-${textColor}`}
+      className={`flex justify-center bg-primary-100 hover:bg-primary-50 duration-100 border-text-200 items-center py-12 w-72 gap-2 mx-auto rounded-2xl font-semibold border-2 border-black text-black hover:opacity-80 hover: transition-all text-text-950`}
     >
-      <img className="w-5" src={icon} alt="Category Icon" />
+      <Icon className="w-5 h-5" icon={icon} />
       <h1>{name}</h1>
-      <img
-        className="w-5"
-        src={textColor == "gray-100" ? WhiteArrow : BlackArrow}
-        alt="Arrow Icon"
-      />
+      {/* <Icon className="w-5 h-5" icon={"material-symbols:arrow-circle-right-outline-rounded"}></Icon> */}
     </Link>
   );
 };
