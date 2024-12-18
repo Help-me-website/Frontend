@@ -52,7 +52,6 @@ export default function DropdownMenuBase({
             style={isOpen ? { height: "max-content", borderColor: "var(--text-500)" } : { height: "0px", borderColor: "transparent" }}
             ref={menuRef}
             role="menu"
-            aria-hidden={!isOpen}
             tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
         >

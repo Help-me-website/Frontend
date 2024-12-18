@@ -8,8 +8,9 @@ import { useRef, useState } from "react";
 import CategoriesMenu from "../components/CategoriesMenu";
 import SortMenu from "../components/SortMenu";
 import FilterMenu from "../components/FilterMenu";
-import AddQuestionModal from "../modals/AddQuestionModa";
-import ModalBase from "../modals/ModalBase";
+import AddQuestionModal from "../modals/AddQuestionModal";
+import { AddQuestionModalAtom } from "../atoms";
+import { useAtom } from "jotai";
 
 
 const questions: Question[] = [
@@ -188,19 +189,18 @@ function CategoriesBtn() {
 
 function AddQuestionBtn() {
 
-    const [isOpen, setIsOpen] = useState(true);
-    const btnRef = useRef<HTMLElement>(null);
+    const [isOpen, setIsOpen] = useAtom(AddQuestionModalAtom);
 
     return<>
         <Button
             variation={1}
             className="flex gap-2 items-center text-nowrap px-3 py-2"    
             onClick={() => setIsOpen(true)}
-            ref={btnRef}
         >
             <Icon icon="majesticons:plus-circle" className="w-6 h-6" />
             <p className="hidden md:inline">Add Question</p>
         </Button>
+        <AddQuestionModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         {/* { isOpen &&
             // <AddQuestionModal togglerRef={btnRef} isOpen={isOpen} setIsOpen={setIsOpen} />
             <ModalBase togglerRef={btnRef} isOpen={isOpen} setIsOpen={setIsOpen}>
