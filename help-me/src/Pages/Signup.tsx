@@ -75,7 +75,7 @@ const Signup = () => {
         Signup
       </h2>
       <form
-        className="flex flex-col w-[80%] mx-auto max-w-[500px] bg-white p-8 shadow-md border-primary-200 border-[3px] rounded-xl"
+        className="flex flex-col w-[80%] mx-auto mb-20 max-w-[500px] bg-white p-8 shadow-md border-primary-200 border-[3px] rounded-xl"
         onSubmit={handleSignup}
       >
         <div className="mb-4">

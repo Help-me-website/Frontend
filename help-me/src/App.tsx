@@ -20,10 +20,12 @@ import History from "./Pages/History";
 import Notifications from "./Pages/Notifications";
 import NoPage from "./Pages/NoPage";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Welcome from "./Pages/Welcome";
 
 import "./styles/App.css";
 import LogoutModal from "./components/LogoutModal";
-import Welcome from "./Pages/Welcome";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   const logedIn = useAtomValue(isLogedIn);
@@ -67,9 +69,13 @@ const Layout = () => {
   const deleteAccount = useAtomValue(showdeleteAccount);
   return (
     <>
-      <Header />
-      {(logoutModal || deleteAccount) && <LogoutModal />}
-      <Outlet />
+      <div className="min-h-[85vh]">
+        <Header />
+        <ScrollToTopButton />
+        {(logoutModal || deleteAccount) && <LogoutModal />}
+        <Outlet />
+      </div>
+      <Footer />
     </>
   );
 };
