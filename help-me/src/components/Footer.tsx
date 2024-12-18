@@ -11,6 +11,7 @@ export default function Footer() {
     >
       <div className="flex flex-row gap-5">
         <button
+          title="button"
           className="hover:opacity-80 transition-all duration-100"
           onClick={() => setExpandedDiv((prev) => !prev)}
         >
@@ -68,3 +69,4 @@ export default function Footer() {
     </footer>
   );
 }
+

@@ -1,7 +1,8 @@
 import { atom } from 'jotai';
 
-export const isLogedIn = atom(true);
-// export const isLogedIn = atom(localStorage.getItem("isLoggedIn") === "true" ? true : false);
+// export const isLogedIn = atom(false);
+export const isLogedIn = atom(localStorage.getItem("isLoggedIn") === "true" ? true : false);
+
 export const firstName = atom("")
 export const lastName = atom("")
 export const email = atom("")

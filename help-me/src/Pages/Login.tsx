@@ -53,9 +53,9 @@ const Login = () => {
       setPassword("");
       setLogedIn(true);
 
-      Welcome(true);
-      setTimeout(() => navigate("/welcome"), 2000);
-      Welcome(false);
+     
+      navigate("/");    
+      // Welcome(false);
       
     } catch (err: any) {
       console.error(err);

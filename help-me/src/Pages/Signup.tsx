@@ -59,9 +59,9 @@ const Signup = () => {
 
       setLogedIn(true);
 
-      Welcome(true);
-      setTimeout(() => navigate("/welcome"), 2000);
-      Welcome(false);
+      navigate("/")
+
+
 
     } catch (err: any) {
       console.error(err);
